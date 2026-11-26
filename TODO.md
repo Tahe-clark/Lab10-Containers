@@ -8,8 +8,8 @@ Le livrable est le **rapport** avec les captures Q1 à Q6. Les captures se mette
 | | Clark | Mathys |
 |---|---|---|
 | Code | **1.1** serveur, **1.2** client, **2** Kubernetes | **1.3** Docker Compose (conteneurs, réseau, volume, healthcheck) |
-| Captures | Q1, Q2, Q4, Q5, Q6 | Q3 |
-| Rapport | Fournit ses captures (Q1, Q2, Q4, Q5, Q6) et relit | **Responsable du rapport** : rédaction et mise en forme complètes (Word) |
+| Captures | — (Clark vérifie que son code fonctionne) | **Q1 à Q6** : exécute le projet sur sa machine et prend toutes les captures |
+| Rapport | Relit | **Responsable du rapport** : captures, rédaction et mise en forme complètes (Word) |
 | Branche | `clark/docker-k8s` | `mathys/compose` |
 
 Ordre : Clark termine d'abord les images (1.1 et 1.2) et ouvre sa PR. Mathys écrit son `docker-compose.yml` en parallèle, puis le teste une fois la PR de Clark fusionnée dans `main` (Compose construit les images à partir des Dockerfiles de Clark).
@@ -30,7 +30,7 @@ Dans le rapport, la section « Répartition du travail » doit refléter ce que 
 - [ ] Remplacer le contenu de `src/main/resources/application.properties` par celui du PDF (variables MYSQL_*).
 - [ ] Construire l'image `books-rest-api:latest`, créer le réseau `mysql-network`, démarrer `mysqldb` puis `booksserver` (commandes du PDF).
 - [ ] Vérifier : http://localhost:8080/swagger-ui.html
-- [ ] **Q1** : `docker container ls` → `docs/screenshots/q1.png`.
+- [ ] Vérifier que le serveur démarre (Swagger). Capture **Q1** (`docker container ls`) : faite par Mathys.
 
 Pièges connus :
 - « gradlew: not found » dans le build : en Linux, un script du dossier courant ne s'appelle pas comme une commande du PATH. Trouve la bonne façon de l'appeler.
@@ -44,16 +44,16 @@ Pièges connus :
 - [ ] Modifier `src/main.ts` (PDF, étape 3) et `BooksService` (`src/app/books/service/books-service.ts`, PDF, étape 4).
 - [ ] Construire l'image `books-api-client:latest`, démarrer `booksclient` (commandes du PDF).
 - [ ] http://localhost:4100 : la page charge (ajoute un livre via Swagger si la base est vide).
-- [ ] **Q2** : `docker container ls` avec les 3 conteneurs → `docs/screenshots/q2.png`.
+- [ ] Capture **Q2** (`docker container ls` avec les 3 conteneurs) : faite par Mathys.
 - [ ] **Avant de pousser** : `git status` doit être propre de tout fichier généré. Commit, push `clark/docker-k8s`, ouvrir la PR vers `main` et prévenir Mathys. (Tu peux ouvrir une première PR avec 1.1 et 1.2, puis une autre pour la partie 2.)
 - [ ] Arrêter et supprimer tes conteneurs avant la suite (ports 8080 et 4100 occupés) : `docker container stop booksclient booksserver mysqldb` puis `docker container rm booksclient booksserver mysqldb`.
 
 ### 3. Kubernetes (section 2) — dossier `k8s/`
 - [ ] `minikube start` (installer Minikube et kubectl si besoin, section 2.1).
 - [ ] `mysql-deployment.yaml`, `mysql-volume.yaml`, `booksserver-deployment.yaml`, `booksclient-deployment.yaml` (PDF, section 2.2).
-- [ ] Charger les 2 images dans Minikube, puis `kubectl apply -f .` → **Q4** (`q4.png`).
-- [ ] `kubectl get deployments` → **Q5** (`q5.png`).
-- [ ] Port-forward `booksserver` (8080) et `booksapp` (4100), vérifier http://localhost:4100, puis `kubectl get pods` → **Q6** (`q6.png`).
+- [ ] Charger les 2 images dans Minikube, puis `kubectl apply -f .` (capture **Q4** : Mathys).
+- [ ] `kubectl get deployments` (capture **Q5** : Mathys).
+- [ ] Port-forward `booksserver` (8080) et `booksapp` (4100), vérifier http://localhost:4100, puis `kubectl get pods` (capture **Q6** : Mathys).
 - [ ] Supprimer un pod `booksserver` (`kubectl delete pod <nom>`) et vérifier qu'un nouveau est créé (réplication).
 - [ ] `kubectl delete -f .` pour nettoyer. Commit, push, PR.
 
@@ -72,7 +72,11 @@ Pièges connus :
 
 ### Rapport (Word)
 - [ ] Page de couverture comme les rapports précédents (noms, numéros étudiants, date, lien du dépôt GitHub).
-- [ ] Captures **Q1 à Q6** dans l'ordre, chacune avec sa légende et la commande utilisée (Clark t'envoie q1, q2, q4, q5, q6 dans `docs/screenshots/`).
+- [ ] Captures **Q1 à Q6** dans l'ordre, chacune avec sa légende et la commande utilisée (c'est toi qui exécutes le projet et prends les 6 captures, dans `docs/screenshots/`, une fois la PR de Clark fusionnée et les fichiers `k8s/` disponibles).
 - [ ] Brève description du travail réalisé (avec tes mots) et étapes pour installer et exécuter le projet.
 - [ ] Section « Répartition du travail » fidèle à ce que chacun a fait.
 - [ ] Export en PDF et remise sur Brightspace.
+
+## Captures (Mathys)
+
+Une fois les PR de Clark fusionnées dans `main`, sur ta machine : cloner le dépôt, construire les images, lancer les conteneurs (Q1, Q2), Docker Compose (Q3), puis Kubernetes avec Minikube (Q4, Q5, Q6). Si un build échoue, préviens Clark avec le message d'erreur complet.
