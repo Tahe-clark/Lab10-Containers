@@ -7,9 +7,9 @@ Le livrable est le **rapport** avec les captures Q1 à Q6. Les captures se mette
 
 | | Clark | Mathys |
 |---|---|---|
-| Code | **1.1** serveur, **1.2** client, **2** Kubernetes (la majorité) | **1.3** Docker Compose (un seul fichier) |
+| Code | **1.1** serveur, **1.2** client, **2** Kubernetes | **1.3** Docker Compose (conteneurs, réseau, volume, healthcheck) |
 | Captures | Q1, Q2, Q4, Q5, Q6 | Q3 |
-| Rapport | Fournit ses captures | **Rédige et met en forme tout le rapport** (Word) |
+| Rapport | Fournit ses captures (Q1, Q2, Q4, Q5, Q6) et relit | **Responsable du rapport** : rédaction et mise en forme complètes (Word) |
 | Branche | `clark/docker-k8s` | `mathys/compose` |
 
 Ordre : Clark termine d'abord les images (1.1 et 1.2) et ouvre sa PR. Mathys écrit son `docker-compose.yml` en parallèle, puis le teste une fois la PR de Clark fusionnée dans `main` (Compose construit les images à partir des Dockerfiles de Clark).
