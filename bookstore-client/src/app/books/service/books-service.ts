@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class BooksService {
-  private Url = 'http://localhost:8080/books-api/';
+  private Url =  ((window as { [key: string]: any })['env']).apiUrl;
   private http: HttpClient = inject(HttpClient);
 
   public getBook(id: string): Observable<BookEntity> {
